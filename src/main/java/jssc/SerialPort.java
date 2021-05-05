@@ -116,6 +116,8 @@ public class SerialPort {
     private static final int PARAMS_FLAG_PARMRK = 2;
     //<- since 2.6.0
 
+    private static final boolean isMac = SerialNativeInterface.getOsType() == SerialNativeInterface.OS_MAC_OS_X;
+
     public SerialPort(String portName) {
         this.portName = portName;
         serialInterface = new SerialNativeInterface();
@@ -1301,6 +1303,8 @@ public class SerialPort {
                         }
                     }
                 }
+                if (!isMac) continue;
+
                 //Need to sleep some time
                 try {
                     Thread.sleep(0, 100);
